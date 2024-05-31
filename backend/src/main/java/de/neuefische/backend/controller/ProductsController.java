@@ -23,4 +23,9 @@ public class ProductsController {
     public List<Products> getAllProducts() {
         return productsRepository.findAll();
     }
+
+    @DeleteMapping("/{productId}")
+    public void deleteProductById(@PathVariable String productId) {
+        productsRepository.deleteById(productId);
+    }
 }
