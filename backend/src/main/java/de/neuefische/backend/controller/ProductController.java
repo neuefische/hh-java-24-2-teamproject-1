@@ -1,7 +1,7 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Products;
-import de.neuefische.backend.repository.ProductsRepository;
+import de.neuefische.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,18 +9,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-public class ProductsController {
+public class ProductController {
 
     @Autowired
-    private ProductsRepository productsRepository;
+    private ProductRepository productRepository;
 
     @PostMapping
     public Products addProduct(@RequestBody Products product) {
-        return productsRepository.save(product);
-    }
-
-    @GetMapping
-    public List<Products> getAllProducts() {
-        return productsRepository.findAll();
+        return productRepository.save(product);
     }
 }
