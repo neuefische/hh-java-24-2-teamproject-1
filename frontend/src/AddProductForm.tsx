@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AddProductForm.css';
-import {fetchProducts} from "./productsData.ts";
-
-interface Product {
-    id?: string;
-    name: string;
-    stock: number;
-    price: number;
-}
+import {fetchProducts, NewProduct} from "./productsData.ts";
 
 const AddProductForm: React.FC = () => {
-    const [product, setProduct] = useState<Product>({ name: '', stock: 0, price: 0.0 });
+    const [product, setProduct] = useState<NewProduct>({ name: '', stock: 0, price: 0.0 });
 
     useEffect(() => {
         fetchProducts();
@@ -28,9 +21,8 @@ const AddProductForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.post('/api/products', product);
-            fetchProducts();
-            alert('Product added successfully');
+            const response = await axios.post('/api/products', product);
+            alert(`Product ${response.data.name} added successfully`);
             setProduct({ name: '', stock: 0, price: 0.0 });
         } catch (error) {
             console.error('Error adding product:', error);
