@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AddProductForm.css';
+import {fetchProducts} from "./productsData.ts";
 
 interface Product {
     id?: string;
@@ -11,21 +12,10 @@ interface Product {
 
 const AddProductForm: React.FC = () => {
     const [product, setProduct] = useState<Product>({ name: '', stock: 0, price: 0.0 });
-    const [products, setProducts] = useState<Product[]>([]);
-    const [errorMessage, setErrorMessage] = useState<string>('');
 
     useEffect(() => {
         fetchProducts();
     }, []);
-
-    const fetchProducts = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/api/products');
-            setProducts(response.data);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -38,10 +28,10 @@ const AddProductForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8080/api/products', product);
+            await axios.post('/api/products', product);
             fetchProducts();
             alert('Product added successfully');
-            setProduct({ name: '', stock: 0, price: 0.0 }); // Reset form
+            setProduct({ name: '', stock: 0, price: 0.0 });
         } catch (error) {
             console.error('Error adding product:', error);
             alert('Failed to add product');
