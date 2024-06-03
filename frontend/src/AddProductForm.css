@@ -1,34 +1,31 @@
-.add-product-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: auto;
+.product-card {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
 }
 
-.add-product-form div {
+form div {
     margin-bottom: 10px;
 }
 
-.add-product-form label {
-    margin-bottom: 5px;
+form label {
+    display: inline-block;
+    width: 100px;
 }
 
-.add-product-form input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
+form input {
+    padding: 5px;
+    width: 200px;
 }
 
-.add-product-form button {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
+button {
+    padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
+    border: none;
     cursor: pointer;
 }
 
-.add-product-form button:hover {
+button:hover {
     background-color: #45a049;
 }

@@ -1,61 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AddProductForm.css';
+import {fetchProducts, NewProduct} from "./productsData.ts";
 
 const AddProductForm: React.FC = () => {
-    const [name, setName] = useState('');
-    const [stock, setStock] = useState<number>(0);
-    const [price, setPrice] = useState<number>(0.0);
+    const [product, setProduct] = useState<NewProduct>({ name: '', stock: 0, price: 0.0 });
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setProduct({
+            ...product,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/products', {
-                name,
-                stock,
-                price
-            });
-            console.log(response.data);
-            // Setze die Eingabefelder zurück
-            setName('');
-            setStock(0);
-            setPrice(0.0);
+            const response = await axios.post('/api/products', product);
+            alert(`Product ${response.data.name} added successfully`);
+            setProduct({ name: '', stock: 0, price: 0.0 });
         } catch (error) {
             console.error('Error adding product:', error);
+            alert('Failed to add product');
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="add-product-form">
-            <div>
-                <label>Product Name:</label>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <label>Stock:</label>
-                <input
-                    type="number"
-                    value={stock}
-                    onChange={(e) => setStock(Number(e.target.value))}
-                    required
-                />
-            </div>
-            <div>
-                <label>Price:</label>
-                <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(Number(e.target.value))}
-                    required
-                />
-            </div>
-            <button type="submit">Add Product</button>
-        </form>
+        <div>
+            <h1>Add Product</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>
+                        Name:
+                        <input type="text" name="name" value={product.name} onChange={handleChange} />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Stock:
+                        <input type="text" name="stock" value={product.stock} onChange={handleChange} />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Price:
+                        <input type="text" name="price" value={product.price} onChange={handleChange} />
+                    </label>
+                </div>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
     );
 };
 
