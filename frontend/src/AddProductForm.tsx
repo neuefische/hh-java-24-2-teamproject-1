@@ -31,31 +31,35 @@ const AddProductForm: React.FC = () => {
     };
 
     return (
+
         <div>
-            <h1>Add Product</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Name:
-                        <input type="text" name="name" value={product.name} onChange={handleChange} />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Stock:
-                        <input type="text" name="stock" value={product.stock} onChange={handleChange} />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Price:
-                        <input type="text" name="price" value={product.price} onChange={handleChange} />
-                    </label>
-                </div>
-                <button type="submit">Add Product</button>
-            </form>
+            <center>
+                <h1>Add Product</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>
+                            Name:
+                            <input type="text" name="name" value={product.name} onChange={handleChange}/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Stock:
+                            <input type="text" name="stock" value={product.stock} onChange={handleChange}/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Price:
+                            <input type="text" name="price" value={product.price} onChange={handleChange}/>
+                        </label>
+                    </div>
+                    <button type="submit">Add Product</button>
+                </form>
+                </center>
         </div>
-    );
+
+);
 };
 
 export default AddProductForm;

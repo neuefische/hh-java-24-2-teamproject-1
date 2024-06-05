@@ -3,6 +3,8 @@ package de.neuefische.backend.controller;
 import de.neuefische.backend.model.Product;
 import de.neuefische.backend.repository.ProductRepository;
 import de.neuefische.backend.service.ProductService;
+import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addProduct(@RequestBody Product product) {
+    public Product addProduct(@Valid @RequestBody Product product) {
         return productRepository.save(product);
     }
 
