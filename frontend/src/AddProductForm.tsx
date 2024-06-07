@@ -34,7 +34,7 @@ const AddProductForm: React.FC = () => {
 
         <div>
             <center>
-                <h1>Add Product</h1>
+                <h1>Add new Product</h1>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>
